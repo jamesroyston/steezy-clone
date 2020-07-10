@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Home from './Views/Home/Home';
 import Login from './Views/Login/Login';
 import SignUp from './Views/SignUp/SignUp';
+import ClassPage from './Views/ClassPage/ClassPage';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         {/* need to make this route private */}
         <Route path="/classes/:id">
           {/* need to pass id to Class */}
-          <Class />
+          <ClassPage />
         </Route>
       </Switch>
     </Router>
