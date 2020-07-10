@@ -98,3 +98,20 @@ Please provide instructions on how to run your application here...
 
 ## Assumptions
 Please list any assumptions or extra requirements you added to the application while developing below.
+
+FYI this is just a scratch pad:
+- will be using some sort of react video player package
+    - found a few good ones that record state of video playback
+        - can store these values in db for each video model
+- styled components
+    - need to add babel-plugin-macros for component names in dom tree (_nice to have for debugging_). 
+- create-react-app scaffold
+- express
+- mongoose / mongodb
+- serving on mongoAtlas and heroku
+- only worried about 1080p resolution for mvp
+- not going to worry about having a dev branch because it's unnecessary overhead for this project
+- starting point: 
+    - I want to start with the mockups. I feel like a basic layout won't take too long to accomplish based on the figma screens
+    - need to review auth gist I built a while back, should be an easy drop in for auth that supports signup/login/logout/unique accounts
+    - will need to decide whether to store images in db with gridFS or just use the string of image name and dynamically select an asset that lives in the client
