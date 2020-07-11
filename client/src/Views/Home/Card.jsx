@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import background from '../../assets/class-thumbnail-1.jpg';
+import thumbnailOne from '../../assets/class-thumbnail-1.jpg';
+import thumbnailTwo from '../../assets/class-thumbnail-2.jpg';
+import thumbnailThree from '../../assets/class-thumbnail-3.jpg';
 
 const Container = styled.div`
   box-sizing: border-box;
-  border: 1px solid #222;
   border-radius: 8px;
   flex: 1/3;
   width: 32%;
@@ -37,7 +38,18 @@ const Gradient = styled.div`
 const Image = styled.div`
   margin-left: auto;
   width: calc(100% - 100px);
-  background-image: url(${background});
+  background-image: ${props => {
+    switch (props.slug) {
+      case 'class-thumbnail-1.jpg':
+        return `url(${thumbnailOne})`;
+      case 'class-thumbnail-2.jpg':
+        return `url(${thumbnailTwo})`;
+      case 'class-thumbnail-3.jpg':
+        return `url(${thumbnailThree})`;
+      default:
+        return `url(${thumbnailOne})`;
+    }
+  }};
   background-size: cover;
   border-radius: 0 7px 7px 0;
 `;
@@ -57,37 +69,38 @@ const Info = styled.div`
   }
 
   .top {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
+    max-width: 250px;
+    word-wrap: break-word;
   }
 
   .bottom {
-    font-size: 11px;
+    font-size: 13px;
     span {
       font-weight: bold;
     }
   }
 `;
 
-export default function Card() {
+export default function Card({ id, title, instructor, level, song, url, slug }) {
   return (
-    <Container>
+    <Container id={id} onClick={() => window.open(url)}>
       <>
         <Info>
           <div className="top">
-            <p>A two line title yuh yuh yuh</p>
-            <p>and it keeps on going</p>
+            <p>{title}</p>
           </div>
 
           <div className="bottom">
             <p>
-              Instructor: <span>Name</span>
+              Instructor: <span>{instructor}</span>
             </p>
             <p>
-              Level: <span>Advanced</span>
+              Level: <span>{level}</span>
             </p>
             <p>
-              Song: <span>Title of song</span>
+              Song: <span>{song}</span>
             </p>
           </div>
         </Info>
@@ -96,9 +109,10 @@ export default function Card() {
         <Gradient />
         <>
           <LeftBlock />
-          <Image />
+          <Image slug={slug} />
         </>
       </>
+      {/* <ProgressBar /> */}
     </Container>
   );
 }
