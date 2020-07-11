@@ -12,7 +12,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // notes: [NoteSchema]
 })
 
 UserSchema.pre('save', function(next) {

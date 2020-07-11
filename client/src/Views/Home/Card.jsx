@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import thumbnailOne from '../../assets/class-thumbnail-1.jpg';
 import thumbnailTwo from '../../assets/class-thumbnail-2.jpg';
 import thumbnailThree from '../../assets/class-thumbnail-3.jpg';
@@ -13,6 +14,15 @@ const Container = styled.div`
   display: flex;
   position: relative;
   margin-bottom: 1.5rem;
+
+  .progress_bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4%;
+    border-radius: 0 0 6px 6px;
+    background-color: #444444;
+  }
 `;
 
 const LeftBlock = styled.div`
@@ -58,7 +68,7 @@ const Info = styled.div`
   position: absolute;
   z-index: 11111;
   width: 100%;
-  height: 100%;
+  height: 95%;
   color: #fff;
   padding: 1rem 0 1rem 1rem;
   display: flex;
@@ -112,7 +122,7 @@ export default function Card({ id, title, instructor, level, song, url, slug }) 
           <Image slug={slug} />
         </>
       </>
-      {/* <ProgressBar /> */}
+      <ProgressBar className="progress_bar" now={Math.floor(Math.random() * 100)} />
     </Container>
   );
 }

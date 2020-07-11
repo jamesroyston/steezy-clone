@@ -12,7 +12,7 @@ const Container = styled.div`
   background-color: #fff;
 
   .pagination {
-    margin-top: 9em;
+    margin-top: 6.4em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,18 +23,23 @@ const Container = styled.div`
     .previous,
     .next {
       border: none;
+      margin: 0;
       font-size: 22px;
+      line-height: 2;
     }
     li {
       cursor: pointer;
       a {
         cursor: pointer;
         outline: none;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
       }
       font-family: Poppins, sans-serif;
       display: flex;
-      justify-content: center;
-      align-items: center;
       list-style: none;
       margin: 0 0.5em;
       color: #b4b7b7;
@@ -58,15 +63,18 @@ export default function Home() {
   const [classes, setClasses] = useState([]);
   const [pages, setPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(null);
+
   useEffect(() => {
     async function fetchData() {
       const response = await getClassList(pageNumber);
       setClasses(response.data.data);
-      setPages(response.data.pages);
       setPageNumber(response.data.pageNumber);
+      if (pages === null) {
+        setPages(response.data.pages);
+      }
     }
     fetchData();
-  }, [pageNumber]);
+  }, [pageNumber, pages]);
 
   function handlePageClick(e) {
     console.log(e);
