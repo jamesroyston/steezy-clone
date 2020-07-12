@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import ReactPaginate from 'react-paginate';
 import Header from '../../Components/Header';
 import Grid from './Grid';
-import getClassList from '../../api/api';
+import { getClassList } from '../../api/api';
 
 const Container = styled.div`
   overflow: hidden;
@@ -60,6 +60,7 @@ const Container = styled.div`
 `;
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [classes, setClasses] = useState([]);
   const [pages, setPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(null);
@@ -68,16 +69,21 @@ export default function Home() {
     async function fetchData() {
       const response = await getClassList(pageNumber);
       setClasses(response.data.data);
-      setPageNumber(response.data.pageNumber);
+      if (pageNumber === null) {
+        setPageNumber(response.data.pageNumber);
+      }
       if (pages === null) {
         setPages(response.data.pages);
       }
+      const loadingVal = setTimeout(() => {
+        setLoading(false);
+        clearTimeout(loadingVal);
+      }, 1000);
     }
     fetchData();
   }, [pageNumber, pages]);
 
   function handlePageClick(e) {
-    console.log(e);
     // pages are zero-indexed
     setPageNumber(e.selected + 1);
   }
@@ -85,7 +91,7 @@ export default function Home() {
   return (
     <Container>
       <Header />
-      <Grid pages={pages} pageNumber={pageNumber} classes={classes} />
+      <Grid pages={pages} pageNumber={pageNumber} classes={classes} loading={loading} />
       <ReactPaginate
         previousLabel="<"
         nextLabel=">"

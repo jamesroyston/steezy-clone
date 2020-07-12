@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import Skeleton from 'react-loading-skeleton';
 import Card from './Card';
 
 const Container = styled.div`
@@ -19,21 +20,35 @@ const Container = styled.div`
   }
 `;
 
-export default function Grid({ classes }) {
+const Skel = styled.div`
+  width: 32%;
+  height: 35%;
+  position: relative;
+  margin-bottom: 1.5rem;
+  flex: 1/3;
+`;
+
+export default function Grid({ classes, loading }) {
   return (
     <Container>
-      {classes?.map(elt => (
-        <Card
-          key={elt._id}
-          id={elt._id}
-          title={elt.title}
-          instructor={elt.instructor}
-          level={elt.level}
-          song={elt.songs}
-          slug={elt.thumbnailSlug}
-          url={elt.videoUrl}
-        />
-      ))}
+      {loading
+        ? [...Array(7).keys()].map(() => (
+            <Skel>
+              <Skeleton height="100%" />
+            </Skel>
+          ))
+        : classes?.map(elt => (
+            <Card
+              key={elt._id}
+              id={elt._id}
+              title={elt.title}
+              instructor={elt.instructor}
+              level={elt.level}
+              song={elt.songs}
+              slug={elt.thumbnailSlug}
+              url={elt.videoUrl}
+            />
+          ))}
     </Container>
   );
 }

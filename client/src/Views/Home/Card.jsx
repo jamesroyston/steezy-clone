@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import thumbnailOne from '../../assets/class-thumbnail-1.jpg';
 import thumbnailTwo from '../../assets/class-thumbnail-2.jpg';
@@ -14,6 +15,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   margin-bottom: 1.5rem;
+  cursor: pointer;
 
   .progress_bar {
     position: absolute;
@@ -94,8 +96,10 @@ const Info = styled.div`
 `;
 
 export default function Card({ id, title, instructor, level, song, url, slug }) {
+  const history = useHistory();
+
   return (
-    <Container id={id} onClick={() => window.open(url)}>
+    <Container id={id} onClick={() => history.push(`/classes/${id}`)}>
       <>
         <Info>
           <div className="top">
