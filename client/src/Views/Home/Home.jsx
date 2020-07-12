@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import Header from '../../Components/Header';
 import Grid from './Grid';
-import { HomeContainer } from './HomeContainer';
+import { HomeContainer, Heading, SearchBar, Container } from './HomeContainer';
 import { getClassList } from '../../api/api';
 import useSessionCheck from '../../hooks/useSessionCheck';
+import { ReactComponent as Search } from '../../assets/search.svg';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,15 @@ export default function Home() {
   return (
     <HomeContainer>
       <Header />
+      <Container>
+        <Heading>Classes</Heading>
+        <SearchBar>
+          <input type="text" placeholder="Search" />
+          <span>
+            <Search />
+          </span>
+        </SearchBar>
+      </Container>
       <Grid pages={pages} pageNumber={pageNumber} classes={classes} loading={loading} />
       <ReactPaginate
         previousLabel="<"

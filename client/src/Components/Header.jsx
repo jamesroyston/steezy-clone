@@ -3,53 +3,72 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { authContext } from '../contexts/AuthContext';
 import { logout } from '../api/api';
-import { ReactComponent as Search } from '../assets/search.svg';
+import { ReactComponent as SteezySVG } from '../assets/steezy.svg';
+import { ReactComponent as User } from '../assets/user.svg';
 
 const Container = styled.div`
+  height: 60px;
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 1.8rem 6rem !important;
-
+  margin-bottom: 0.5rem;
+  //padding: 0em 6rem;
+  border-bottom: 3px solid #ebefef;
   span {
-    margin: 0 0.5rem;
+    margin: 0 1rem 0 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
   }
-`;
-
-const Heading = styled.h1`
-  font-weight: bold;
-  font-size: 32px;
-  margin-right: 0.5em;
-`;
-
-const SearchBar = styled.div`
-  input {
-    line-height: 1;
-    margin-left: 11px;
-    font-size: 14px;
-    background: none;
-    border: none;
-    outline: none;
-    width: 100%;
-  }
-  height: 2rem;
-  width: 513px;
-  border-radius: 4px;
-  background-color: #ebefef;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  span {
+  div {
     margin-left: auto;
-    margin-right: 0;
-    border-radius: 0 4px 4px 0;
-    background-color: #222;
-    width: 37px;
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  }
+  .steezy_logo {
+    width: 150px;
+  }
+
+  .user_logo {
+    width: 33px;
+  }
+`;
+
+const HeaderLink = styled(Link)`
+  height: 105%;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1.9px;
+  color: #222;
+  text-decoration: none;
+  background-color: #ebefef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  :hover {
+    color: #fff;
+    background-color: #0b79fb;
+    text-decoration: none;
+  }
+`;
+
+const HeaderLinkMain = styled(Link)`
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1.9px;
+  color: #222;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+  border-top: 5px solid transparent;
+  height: 100%;
+  :hover {
+    border-top: 5px solid #ebefef;
+    text-decoration: none;
+    color: #222;
   }
 `;
 
@@ -62,37 +81,32 @@ export default function Header() {
 
   const nav = !store.get.auth ? (
     <>
-      <span>
-        <Link to="/login">Login</Link>
-      </span>
-      <span>
-        <Link to="/signup">Sign Up</Link>
-      </span>
+      <div>
+        <HeaderLink to="/login">LOGIN</HeaderLink>
+        <HeaderLink style={{ color: '#fff', backgroundColor: '#0b79fb' }} to="/signup">
+          SIGN-UP
+        </HeaderLink>
+      </div>
     </>
   ) : (
     <>
-      <span>
-        Good to see you, <strong>{store.get.user.substring(0, store.get.user.indexOf('@'))}</strong>
-        .
-      </span>
-      <span>
-        <Link to="/classes" onClick={handleLogout}>
-          Logout
-        </Link>
-      </span>
+      <div>
+        <span>
+          <User className="user_logo" />
+          <strong>{store.get.user.substring(0, store.get.user.indexOf('@'))}</strong>
+        </span>
+        <HeaderLink to="/classes" onClick={handleLogout}>
+          LOGOUT
+        </HeaderLink>
+      </div>
     </>
   );
 
   return (
     <Container>
-      <Heading>Classes</Heading>
+      <SteezySVG className="steezy_logo" />
+      <HeaderLinkMain to="/classes">CLASSES</HeaderLinkMain>
       {store.get.loading ? '' : nav}
-      <SearchBar>
-        <input type="text" placeholder="Search" />
-        <span>
-          <Search />
-        </span>
-      </SearchBar>
     </Container>
   );
 }

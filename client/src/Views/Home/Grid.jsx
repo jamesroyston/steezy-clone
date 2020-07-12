@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 85%;
+  height: 82%;
   padding: 0 6rem;
   justify-content: space-between;
 

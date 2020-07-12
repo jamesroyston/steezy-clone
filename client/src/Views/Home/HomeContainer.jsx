@@ -1,5 +1,50 @@
 import styled from 'styled-components/macro';
 
+export const Container = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0em 6rem;
+  margin-bottom: 0.5rem;
+`;
+
+export const SearchBar = styled.div`
+  input {
+    line-height: 1;
+    margin-left: 11px;
+    font-size: 14px;
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+  height: 2rem;
+  width: 513px;
+  border-radius: 4px;
+  background-color: #ebefef;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: auto;
+    margin-right: 0;
+    border-radius: 0 4px 4px 0;
+    background-color: #222;
+    width: 37px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+`;
+
+export const Heading = styled.h1`
+  font-weight: bold;
+  font-size: 32px;
+  margin: 0;
+`;
+
 export const HomeContainer = styled.div`
   overflow: hidden;
   height: 100vh;

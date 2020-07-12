@@ -38,7 +38,7 @@ exports.class_get_all = function (req, res, next) {
 }
 
 exports.updateAll = function (req, res, next) {
-  Class.updateMany({}, {$set: {videoUrl: 'https://www.youtube.com/watch?v=YE7VzlLtp-4'}}, function (error) {
+  Class.updateMany({}, {$set: {videoUrl: 'https://www.youtube.com/watch?v=Vb8Bwq4FppQ'}}, function (error) {
     if (error) console.log(error)
 
     console.log('success')

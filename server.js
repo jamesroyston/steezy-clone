@@ -50,4 +50,17 @@ app.use(userRouter);
 // m = require("./controllers/classController")
 // m.updateAll();
 
+/*
+** NOTE: ONLY UNCOMMENT THE LINES BELOW ONCE YOU'RE READY
+** TO SERVE THE REACT BUILD
+*/
+
+// **serve static assets from client
+app.use(express.static(path.join(__dirname, 'client/build')))
+
+// **serve index.html from client build folder
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
+
 app.listen(process.env.PORT, () => console.log(`listening on port ${process.env.PORT}`));
