@@ -17,8 +17,12 @@ export function login(username = '', password = '') {
     username,
     password,
   })
-    .then(res => res)
-    .catch(error => console.log(error));
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error.response;
+    });
 }
 
 export function signup(username = '', password = '') {

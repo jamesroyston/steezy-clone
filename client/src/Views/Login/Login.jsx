@@ -18,14 +18,26 @@ export default function Login() {
   const { store } = useContext(authContext);
   const history = useHistory();
 
+  function resetForm() {
+    setUsername('');
+    setPassword('');
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     login(username, password)
-      .then(() => {
-        store.set.auth(true);
-        history.push('/classes');
+      .then(res => {
+        if (res.status === 200) {
+          store.set.auth(true);
+          return history.push('/classes');
+        }
+
+        throw Error('username or password was incorrect or not found');
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        resetForm();
+        alert(error);
+      });
   }
 
   return (
@@ -33,11 +45,17 @@ export default function Login() {
       <Form onSubmit={handleSubmit}>
         <Logo />
         <Input
+          value={username}
           type="email"
           placeholder="Email Address"
           onChange={e => setUsername(e.target.value)}
         />
-        <Input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+        <Input
+          value={password}
+          type="password"
+          placeholder="Password"
+          onChange={e => setPassword(e.target.value)}
+        />
         <Button type="submit" value="Log In" />
         <Message>
           Don't have an account? <MessageLink to="/signup">Sign Up</MessageLink>

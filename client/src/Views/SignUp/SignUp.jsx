@@ -26,11 +26,17 @@ export default function SignUp() {
       <Form onSubmit={handleSubmit}>
         <Logo />
         <Input
+          value={username}
           type="email"
           placeholder="Email Address"
           onChange={e => setUsername(e.target.value)}
         />
-        <Input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+        <Input
+          value={password}
+          type="password"
+          placeholder="Password"
+          onChange={e => setPassword(e.target.value)}
+        />
         <Button type="submit" value="Create Account" />
       </Form>
     </Container>

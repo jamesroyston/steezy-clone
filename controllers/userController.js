@@ -32,7 +32,6 @@ module.exports = {
   },
 
   login: (req, res) => {
-    // req.session = {};
     const {username, password} = req.body
     User.findOne({username}, function (err, user) {
       if (err) {
@@ -43,6 +42,7 @@ module.exports = {
       }
       if (!user) {
         return res.status(401).json({
+          status: 401,
           error: "incorrect username or password",
         });
       }
