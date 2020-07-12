@@ -32,8 +32,8 @@ export default function Grid({ classes, loading }) {
   return (
     <Container>
       {loading
-        ? [...Array(7).keys()].map(() => (
-            <Skel>
+        ? [...Array(7).keys()].map(i => (
+            <Skel key={i}>
               <Skeleton height="100%" />
             </Skel>
           ))

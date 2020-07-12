@@ -1,69 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components/macro';
 import ReactPaginate from 'react-paginate';
 import Header from '../../Components/Header';
 import Grid from './Grid';
+import { HomeContainer } from './HomeContainer';
 import { getClassList } from '../../api/api';
-
-const Container = styled.div`
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
-  background-color: #fff;
-
-  .pagination {
-    margin-top: 6.4em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100%;
-    padding: 0;
-    font-weight: bolder;
-    .previous,
-    .next {
-      border: none;
-      margin: 0;
-      font-size: 22px;
-      line-height: 2;
-    }
-    li {
-      cursor: pointer;
-      a {
-        cursor: pointer;
-        outline: none;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-      }
-      font-family: Poppins, sans-serif;
-      display: flex;
-      list-style: none;
-      margin: 0 0.5em;
-      color: #b4b7b7;
-      border: 3px solid #b4b7b7;
-      border-radius: 8px;
-      font-size: 14px;
-      width: 2em;
-      height: 2em;
-    }
-    li.active {
-      color: #0b79fb;
-      border: 3px solid #0b79fb;
-    }
-    .break-me {
-      display: none;
-    }
-  }
-`;
+import useSessionCheck from '../../hooks/useSessionCheck';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [classes, setClasses] = useState([]);
-  const [pages, setPages] = useState(null);
+  const [pages, setPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(null);
+
+  useSessionCheck();
 
   useEffect(() => {
     async function fetchData() {
@@ -72,13 +21,13 @@ export default function Home() {
       if (pageNumber === null) {
         setPageNumber(response.data.pageNumber);
       }
-      if (pages === null) {
+      if (pages === 0) {
         setPages(response.data.pages);
       }
       const loadingVal = setTimeout(() => {
         setLoading(false);
         clearTimeout(loadingVal);
-      }, 1000);
+      }, 500);
     }
     fetchData();
   }, [pageNumber, pages]);
@@ -89,7 +38,7 @@ export default function Home() {
   }
 
   return (
-    <Container>
+    <HomeContainer>
       <Header />
       <Grid pages={pages} pageNumber={pageNumber} classes={classes} loading={loading} />
       <ReactPaginate
@@ -105,6 +54,6 @@ export default function Home() {
         subContainerClassName="pages pagination"
         activeClassName="active"
       />
-    </Container>
+    </HomeContainer>
   );
 }

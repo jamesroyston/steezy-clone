@@ -18,9 +18,6 @@ let userRouter = require('./routes/user');
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use(classRouter);
-app.use(userRouter);
-
 
 // connect to DB
 mongoose.connect(process.env.DB, {
@@ -43,6 +40,11 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2, // two weeks
   }
 }));
+
+// mount routers || must be last middleware mounted
+// https://stackoverflow.com/questions/39796228/req-session-is-undefined-using-express-session
+app.use(classRouter);
+app.use(userRouter);
 
 // method for updating Class fields (like youtube url)
 // m = require("./controllers/classController")

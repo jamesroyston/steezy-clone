@@ -5,6 +5,10 @@ import styled from 'styled-components/macro';
 import { getClassById } from '../../api/api';
 import Controls from './Controls';
 
+const Container = styled.div`
+  background-color: #000;
+`;
+
 export default function ClassPage() {
   const { id } = useParams();
   const [videoUrl, setVideoUrl] = useState('');
@@ -25,7 +29,7 @@ export default function ClassPage() {
   }
 
   return (
-    <>
+    <Container>
       <ReactPlayer
         onProgress={handleProgress}
         config={{
@@ -41,6 +45,6 @@ export default function ClassPage() {
         url={videoUrl}
       />
       {/* <Controls /> */}
-    </>
+    </Container>
   );
 }
