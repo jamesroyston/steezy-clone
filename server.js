@@ -44,4 +44,8 @@ app.use(session({
   }
 }));
 
+// method for updating Class fields (like youtube url)
+// m = require("./controllers/classController")
+// m.updateAll();
+
 app.listen(process.env.PORT, () => console.log(`listening on port ${process.env.PORT}`));

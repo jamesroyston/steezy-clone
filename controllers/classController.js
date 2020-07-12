@@ -30,3 +30,18 @@ exports.class_item = function (req, res, next) {
     res.json(classById)
   })
 };
+
+exports.class_get_all = function (req, res, next) {
+  Class.find({}).then(data => res.status(200).json({
+    data: [...data]
+  }))
+}
+
+exports.updateAll = function (req, res, next) {
+  Class.updateMany({}, {$set: {videoUrl: 'https://www.youtube.com/watch?v=YE7VzlLtp-4'}}, function (error) {
+    if (error) console.log(error)
+
+    console.log('success')
+
+  })
+}

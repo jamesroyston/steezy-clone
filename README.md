@@ -6,6 +6,8 @@ Your task is to bring the next generation of dance education to users around the
 
 ## Product Requirements
 
+### key for completetion: ✅
+
 AUTHENTICATION  
 As a user:
 - [ ] I want to navigate to the /signup route to sign up with an email and a password
@@ -40,7 +42,7 @@ As an authenticated user:
 
 CLASS PAGE  
 As an authenticated user:
-- [ ] I want to navigate to the /classes/{ID} route for each class
+- ✅ I want to navigate to the /classes/{ID} route for each class
 - [ ] I want to play the video
 - [ ] I want to pause the video
 - [ ] I want to see a timestamp of how many seconds I have elapsed in the video
