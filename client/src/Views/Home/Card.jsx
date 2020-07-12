@@ -11,7 +11,7 @@ const Container = styled.div`
   border-radius: 8px;
   flex: 1/3;
   width: 32%;
-  height: 35%;
+  height: 30%;
   display: flex;
   position: relative;
   margin-bottom: 1.5rem;

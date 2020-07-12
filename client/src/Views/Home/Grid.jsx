@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 70%;
+  height: 85%;
   padding: 0 6rem;
   justify-content: space-between;
 
@@ -16,13 +16,13 @@ const Container = styled.div`
     content: '';
     flex: 1/3;
     width: 32%;
-    height: 35%;
+    height: 30%;
   }
 `;
 
 const Skel = styled.div`
   width: 32%;
-  height: 35%;
+  height: 30%;
   position: relative;
   margin-bottom: 1.5rem;
   flex: 1/3;
@@ -32,7 +32,7 @@ export default function Grid({ classes, loading }) {
   return (
     <Container>
       {loading
-        ? [...Array(7).keys()].map(i => (
+        ? [...Array(9).keys()].map(i => (
             <Skel key={i}>
               <Skeleton height="100%" />
             </Skel>

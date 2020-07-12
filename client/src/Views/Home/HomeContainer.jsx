@@ -7,7 +7,7 @@ export const HomeContainer = styled.div`
   background-color: #fff;
 
   .pagination {
-    margin-top: 6.4em;
+    margin: -1em 0 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
