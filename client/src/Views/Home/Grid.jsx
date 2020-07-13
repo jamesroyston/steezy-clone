@@ -47,6 +47,7 @@ export default function Grid({ classes, loading }) {
               song={elt.songs}
               slug={elt.thumbnailSlug}
               url={elt.videoUrl}
+              progress={elt.userIds[0]?.progress ?? 0}
             />
           ))}
     </Container>

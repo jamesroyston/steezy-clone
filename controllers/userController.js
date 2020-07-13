@@ -82,5 +82,33 @@ module.exports = {
       })
     }
     res.sendStatus(404)
-  }
+  },
+
+  // getWatchedList: (req, res, next) => {
+  //   User.findById(req.session.userId).exec(function (error, user) {
+  //     if (error) return next(error)
+  //
+  //     res.json(user.watchedVideos)
+  //   })
+  // },
+  //
+  // updateWatched: (req, res) => {
+  //   // grab videoID and playback out of req
+  //   console.log('hi')
+  //   User.findById(req.session.userId).exec(function (err, user) {
+  //     if (err) console.log(err)
+  //     // console.log(user)
+  //     // console.log(req.body.videoId)
+  //     // console.log(req.body.progress)
+  //     const existingSubDocument = user.watchedVideos.find(video => video.id === req.body.videoId);
+  //     if (existingSubDocument !== undefined) {
+  //       existingSubDocument.progress = req.body.progress;
+  //     } else {
+  //       user.watchedVideos.push({id: req.body.videoId, progress: req.body.progress})
+  //     }
+  //     user.save();
+  //     res.sendStatus(200);
+  //   })
+
+  // }
 }

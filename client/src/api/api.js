@@ -45,3 +45,18 @@ export function sessionCheck() {
     .then(res => res.data)
     .catch(error => console.log(error));
 }
+
+export function updateWatched(videoId, progress) {
+  return Axios.post(`/api/updateClasses`, {
+    videoId,
+    progress,
+  })
+    .then(res => res.data)
+    .catch(error => console.log(error));
+}
+
+export function getWatchedList() {
+  return Axios.get('/api/getWatchedList')
+    .then(res => res.data)
+    .catch(error => console.log(error));
+}

@@ -63,7 +63,7 @@ const HeaderLinkMain = styled(Link)`
   justify-content: center;
   align-items: center;
   margin: 0 1rem;
-  border-top: 5px solid transparent;
+  border-top: 5px solid #222;
   height: 100%;
   :hover {
     border-top: 5px solid #ebefef;

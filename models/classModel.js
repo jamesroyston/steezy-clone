@@ -6,7 +6,11 @@ const ClassSchema = new mongoose.Schema({
   thumbnailSlug: String,
   songs: String,
   level: String,
-  instructor: String
+  instructor: String,
+  userIds: [{
+    userId: String,
+    progress: Number
+  }]
 })
 
 module.exports = mongoose.model('Classes', ClassSchema)

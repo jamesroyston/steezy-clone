@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components/macro';
-import { getClassById } from '../../api/api';
+import { getClassById, updateWatched } from '../../api/api';
 import Controls from './Controls';
 
 const Container = styled.div`
@@ -13,6 +13,7 @@ export default function ClassPage() {
   const { id } = useParams();
   const [videoUrl, setVideoUrl] = useState('');
   const [progress, setProgress] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchData() {
@@ -20,12 +21,18 @@ export default function ClassPage() {
       setVideoUrl(response.data.videoUrl);
     }
     fetchData();
-    return () => setVideoUrl('');
+    return () => {
+      setVideoUrl('');
+      updateWatched(localStorage.id, Number(localStorage.progress));
+      localStorage.id = '';
+      localStorage.progress = '';
+    };
   }, [id]);
 
   function handleProgress(e) {
-    setProgress(e);
-    console.log(e);
+    setProgress(e.played);
+    localStorage.id = id;
+    localStorage.progress = e.played;
   }
 
   return (

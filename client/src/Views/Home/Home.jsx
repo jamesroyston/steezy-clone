@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import Header from '../../Components/Header';
 import Grid from './Grid';
@@ -6,12 +7,14 @@ import { HomeContainer, Heading, SearchBar, Container } from './HomeContainer';
 import { getClassList } from '../../api/api';
 import useSessionCheck from '../../hooks/useSessionCheck';
 import { ReactComponent as Search } from '../../assets/search.svg';
+import { authContext } from '../../contexts/AuthContext';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [classes, setClasses] = useState([]);
   const [pages, setPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(null);
+  const { store } = useContext(authContext);
 
   useSessionCheck();
 
@@ -31,7 +34,7 @@ export default function Home() {
       }, 500);
     }
     fetchData();
-  }, [pageNumber, pages]);
+  }, [pageNumber, pages, store.get.auth]);
 
   function handlePageClick(e) {
     // pages are zero-indexed

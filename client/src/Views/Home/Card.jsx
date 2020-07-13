@@ -95,7 +95,7 @@ const Info = styled.div`
   }
 `;
 
-export default function Card({ id, title, instructor, level, song, url, slug }) {
+export default function Card({ id, title, instructor, level, song, url, slug, progress }) {
   const history = useHistory();
 
   return (
@@ -126,7 +126,7 @@ export default function Card({ id, title, instructor, level, song, url, slug }) 
           <Image slug={slug} />
         </>
       </>
-      <ProgressBar className="progress_bar" now={Math.floor(Math.random() * 100)} />
+      <ProgressBar className="progress_bar" now={progress * 100} />
     </Container>
   );
 }
