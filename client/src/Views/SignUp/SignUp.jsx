@@ -1,6 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Input, Form, Button } from '../../Components/FormComponents';
+import {
+  Container,
+  Input,
+  Form,
+  Button,
+  MessageLink,
+  Message,
+} from '../../Components/FormComponents';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { signup } from '../../api/api';
 import { authContext } from '../../contexts/AuthContext';
@@ -11,14 +18,32 @@ export default function SignUp() {
   const { store } = useContext(authContext);
   const history = useHistory();
 
+  function resetForm() {
+    setUsername('');
+    setPassword('');
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     signup(username, password)
-      .then(() => {
-        store.set.auth(true);
-        history.push('/classes');
+      .then(res => {
+        if (res?.status === 200) {
+          store.set.auth(true);
+          return history.push({
+            pathname: '/login',
+            state: {
+              username,
+              password,
+            },
+          });
+        }
+
+        throw Error('email is taken, please try again.');
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        resetForm();
+        alert(error);
+      });
   }
 
   return (
@@ -38,6 +63,9 @@ export default function SignUp() {
           onChange={e => setPassword(e.target.value)}
         />
         <Button type="submit" value="Create Account" />
+        <Message>
+          <MessageLink to="/classes">See our classes</MessageLink> 🙂
+        </Message>
       </Form>
     </Container>
   );

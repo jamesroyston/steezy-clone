@@ -1,32 +1,48 @@
 let Class = require('../models/classModel.js');
 
+// source: https://medium.com/@dhaniNishant/creating-limit-skip-between-exclude-functions-for-javascript-arrays-4d60a75aaae7
+function limit(c) {
+  return this.filter((x, i) => {
+    if (i <= (c - 1)) {
+      return true
+    }
+  })
+}
+
+Array.prototype.limit = limit;
+
+function skip(c) {
+  return this.filter((x, i) => {
+    if (i > (c - 1)) {
+      return true
+    }
+  })
+}
+
+Array.prototype.skip = skip;
+
 // Display list of all Classes
 module.exports = {
   class_list: async function (req, res, next) {
-    const pagination = req.body.pagination ? parseInt(req.body.pagination) : 9;
+    const pageSize = 9;
     //PageNumber From which Page to Start
     const pageNumber = req.body.page ? parseInt(req.body.page) : 1;
 
-    let pages = Math.ceil(await Class.countDocuments({}) / pagination);
+    let totalPages = Math.ceil(await Class.countDocuments({}) / pageSize);
 
     await Class
       .find({})
-      .skip((pageNumber - 1) * pagination)
+      .skip((pageNumber - 1) * pageSize)
       //limit is number of Records we want to display
-      .limit(pagination)
+      .limit(pageSize)
       .then(data => {
-        let temp;
-        data.map(classItem => {
+        data.forEach(classItem => {
           if (req.session.userId) {
             if (classItem.userIds.length > 0) {
-              classItem.userIds.map(u => {
-                if (u.userId === req.session.userId) {
-                  temp = u;
-                }
+              classItem.userIds.forEach(u => {
+                classItem.userIds = [classItem.userIds.find(u => u.userId === req.session.userId)]
               })
-              classItem.userIds = [temp]
             }
-            // else classItem.userIds is [] and should stay that way....
           } else {
             // if no session, return no progress data
             classItem.userIds = [];
@@ -36,7 +52,7 @@ module.exports = {
           {
             data: [...data],
             pageNumber,
-            pages: pages
+            totalPages
           }
         )
       })
@@ -80,7 +96,7 @@ module.exports = {
   },
 
 // Return all classes
-  class_get_all: function (req, res, next) {
+  class_get_all: function (req, res) {
     Class.find({}).then(data => res.status(200).json({
       data: [...data]
     }))
@@ -93,5 +109,43 @@ module.exports = {
       console.log('success')
 
     })
+  },
+
+  search: function (req, res) {
+    const pageSize = 9;
+    //PageNumber From which Page to Start
+    let pageNumber = req.body.currentPage ? parseInt(req.body.currentPage) : 1;
+
+    Class.search(req.body.query, function (error, output) {
+      if (error) console.log(error);
+      return output
+    })
+      .then(data => {
+        // remove userIds from output before sending response with data
+        let totalPages = Math.ceil(data.length / pageSize);
+        if (totalPages < pageNumber) {
+          pageNumber = 1;
+        }
+
+        data.forEach(classItem => {
+          if (req.session.userId) {
+            if (classItem.userIds && classItem.userIds.length > 0) {
+              classItem.userIds.forEach(idx => {
+                classItem.userIds = [classItem.userIds.find(() => req.session.userId === idx.userId)]
+              })
+            }
+          } else {
+            // if no session, return no progress data
+            classItem.userIds = [];
+          }
+        });
+
+
+        res.json({
+          output: [...data.skip((pageNumber - 1) * pageSize).limit(pageSize)],
+          pageNumber: pageNumber,
+          totalPages
+        })
+      })
   }
 }

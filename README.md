@@ -13,7 +13,7 @@ As a user:
 - ✅ I want to navigate to the /signup route to sign up with an email and a password
   - [ ] I want my email to be unique to me when I sign up. If a user already has the email I specified I should return to the signup page with some indication of an error
 - ✅ I want to navigate to the /login route to login to my account with my email and password
-  - [ ] I want the login page to show me some indication of an error if my login information is incorrect
+  - ✅ I want the login page to show me some indication of an error if my login information is incorrect
   - ✅ I want the login page to have a link to the /signup page if I do not already have an account
 - ✅ I want to be able to logout of my account
 
@@ -26,10 +26,10 @@ As an unauthenticated user:
   when I am viewing or searching the available classes
   - ✅ I want to see the first 9 classes available, with the ability to paginate (9 classes per page)
   - ✅ I want to see the title of the class, the instructor, the level, the class thumbnail, and the song used in the class
-  - [ ] I want to search the entire catalog of classes. I want to search by title, instructor, level, or song
-    - [ ] I want to search without worrying about case sensitivity
-    - [ ] I want my search results to show partial results e.g. searching "Anne" will return "Leanne" and "Anne"
-  - [ ] I want my search results to be indexed 9 classes at a time
+  - ✅ I want to search the entire catalog of classes. I want to search by title, instructor, level, or song
+    - ✅ I want to search without worrying about case sensitivity
+    - ✅ I want my search results to show partial results e.g. searching "Anne" will return "Leanne" and "Anne"
+  - ✅ I want my search results to be indexed 9 classes at a time
 
 As an authenticated user:
 - ✅ I want to navigate to the /classes route to see what classes are available. (/classes will act as the homepage)
@@ -38,7 +38,7 @@ As an authenticated user:
 - ✅ I want to enter the class player when I click on a class thumbnail  
 
   when I am viewing or searching the available classes
-  - [ ] I want the search functionality to mirror the unauthenticated user flow
+  - ✅ I want the search functionality to mirror the unauthenticated user flow
 
 CLASS PAGE  
 As an authenticated user:

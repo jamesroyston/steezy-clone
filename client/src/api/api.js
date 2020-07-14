@@ -17,9 +17,7 @@ export function login(username = '', password = '') {
     username,
     password,
   })
-    .then(data => {
-      return data;
-    })
+    .then(data => data)
     .catch(error => {
       return error.response;
     });
@@ -30,7 +28,7 @@ export function signup(username = '', password = '') {
     username,
     password,
   })
-    .then(res => (res.status === 200 ? login(username, password) : res))
+    .then(data => data)
     .catch(error => console.log(error));
 }
 
@@ -55,8 +53,11 @@ export function updateWatched(videoId, progress) {
     .catch(error => console.log(error));
 }
 
-export function getWatchedList() {
-  return Axios.get('/api/getWatchedList')
+export function search(query, currentPage) {
+  return Axios.post('/api/search', {
+    query,
+    currentPage,
+  })
     .then(res => res.data)
     .catch(error => console.log(error));
 }

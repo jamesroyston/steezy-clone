@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -32,13 +32,20 @@ export default function Login() {
           return history.push('/classes');
         }
 
-        throw Error('username or password was incorrect or not found');
+        throw Error('email or password was incorrect or not found');
       })
       .catch(error => {
         resetForm();
         alert(error);
       });
   }
+
+  useEffect(() => {
+    if (history.location.state) {
+      setUsername(history.location.state.username);
+      setPassword(history.location.state.password);
+    }
+  }, [history.location.state]);
 
   return (
     <Container>
@@ -59,6 +66,9 @@ export default function Login() {
         <Button type="submit" value="Log In" />
         <Message>
           Don't have an account? <MessageLink to="/signup">Sign Up</MessageLink>
+        </Message>
+        <Message>
+          <MessageLink to="/classes">See our classes</MessageLink> 🙂
         </Message>
       </Form>
     </Container>

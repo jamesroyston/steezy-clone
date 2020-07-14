@@ -1,71 +1,60 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import Header from '../../Components/Header';
 import Grid from './Grid';
-import { HomeContainer, Heading, SearchBar, Container } from './HomeContainer';
-import { getClassList } from '../../api/api';
+import { HomeContainer, Heading, Container } from './HomeContainer';
+import Searchbar from './Searchbar';
+import { search } from '../../api/api';
 import useSessionCheck from '../../hooks/useSessionCheck';
-import { ReactComponent as Search } from '../../assets/search.svg';
-import { authContext } from '../../contexts/AuthContext';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [classes, setClasses] = useState([]);
-  const [pages, setPages] = useState(0);
-  const [pageNumber, setPageNumber] = useState(null);
-  const { store } = useContext(authContext);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [query, setQuery] = useState('');
+  const history = useHistory();
+
+  function handlePageClick(e) {
+    setCurrentPage(e.selected + 1);
+  }
 
   useSessionCheck();
 
   useEffect(() => {
+    // initialize app with all classes
+    setLoading(true);
     async function fetchData() {
-      const response = await getClassList(pageNumber);
-      setClasses(response.data.data);
-      if (pageNumber === null) {
-        setPageNumber(response.data.pageNumber);
-      }
-      if (pages === 0) {
-        setPages(response.data.pages);
-      }
-      const loadingVal = setTimeout(() => {
-        setLoading(false);
-        clearTimeout(loadingVal);
-      }, 500);
+      const response = await search(query, currentPage);
+      await setClasses(response.output);
+      await setTotalPages(response.totalPages);
+      setTimeout(() => setLoading(false), 200);
     }
     fetchData();
-  }, [pageNumber, pages, store.get.auth]);
-
-  function handlePageClick(e) {
-    // pages are zero-indexed
-    setPageNumber(e.selected + 1);
-  }
+  }, [currentPage, history.location.pathname, query, totalPages]);
 
   return (
     <HomeContainer>
       <Header />
       <Container>
         <Heading>Classes</Heading>
-        <SearchBar>
-          <input type="text" placeholder="Search" />
-          <span>
-            <Search />
-          </span>
-        </SearchBar>
+        <Searchbar query={query} setQuery={setQuery} />
       </Container>
-      <Grid pages={pages} pageNumber={pageNumber} classes={classes} loading={loading} />
+      <Grid classes={classes} loading={loading} />
       <ReactPaginate
         previousLabel="<"
         nextLabel=">"
         breakLabel="..."
         breakClassName="break-me"
-        pageCount={pages}
-        marginPagesDisplayed={0}
+        pageCount={totalPages}
+        marginPagesDisplayed={1}
         pageRangeDisplayed={4}
-        onPageChange={e => handlePageClick(e)}
+        onPageChange={handlePageClick}
         containerClassName="pagination"
         subContainerClassName="pages pagination"
         activeClassName="active"
+        initialPage={currentPage}
       />
     </HomeContainer>
   );

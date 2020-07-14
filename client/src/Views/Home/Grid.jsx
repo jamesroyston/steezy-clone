@@ -10,6 +10,7 @@ const Container = styled.div`
   height: 82%;
   padding: 0 6rem;
   justify-content: space-between;
+  align-content: flex-start;
 
   // pushes last card over since last row has two items instead of three
   ::after {

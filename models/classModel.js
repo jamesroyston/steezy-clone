@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const textSearch = require('mongoose-partial-full-search');
 
 const ClassSchema = new mongoose.Schema({
   videoUrl: String,
@@ -11,6 +12,10 @@ const ClassSchema = new mongoose.Schema({
     userId: String,
     progress: Number
   }]
-})
+});
 
-module.exports = mongoose.model('Classes', ClassSchema)
+ClassSchema.plugin(textSearch);
+
+ClassSchema.index({ title: "text", songs: "text", level: "text", instructor: "text" });
+
+module.exports = mongoose.model('Classes', ClassSchema);
