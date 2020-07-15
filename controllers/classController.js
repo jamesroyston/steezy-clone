@@ -196,7 +196,12 @@ module.exports = {
           if (req.session.userId) {
             if (classItem.userIds && classItem.userIds.length > 0) {
               classItem.userIds.forEach(idx => {
-                classItem.userIds = [classItem.userIds.find(u => req.session.userId === u.userId)]
+                try{
+                  classItem.userIds = [classItem.userIds.find(u => req.session.userId === u.userId)]
+                } catch (error) {
+                  // if here, we're dealing with a brand new user. they won't have any watched data, so the above .find should fail
+                  console.log(error)
+                }
               })
             }
           } else {
