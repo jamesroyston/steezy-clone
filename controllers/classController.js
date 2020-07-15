@@ -138,9 +138,14 @@ module.exports = {
       // calculate overall percentage watched
       // NOTE TO REVIEWER: ADD CONSOLE.LOGS IN HERE TO SEE watched AND overall VALUES TO SEE THAT THIS WORKS
       let overall;
+      let watched;
       if (percentWatched && percentWatched.length > 0) {
-        const watched = percentWatched.map(range => range.end - range.start)
-        overall = watched.reduce((accumulator, currentValue) => accumulator + currentValue);
+        try {
+          watched = percentWatched.map(range => range.end - range.start)
+          overall = watched.reduce((accumulator, currentValue) => accumulator + currentValue);
+        } catch (error) {
+          console.log(error)
+        }
       }
 
       if (classById.userIds.find(user => user.userId === req.session.userId)) {
@@ -196,7 +201,7 @@ module.exports = {
           if (req.session.userId) {
             if (classItem.userIds && classItem.userIds.length > 0) {
               classItem.userIds.forEach(idx => {
-                try{
+                try {
                   classItem.userIds = [classItem.userIds.find(u => req.session.userId === u.userId)]
                 } catch (error) {
                   // if here, we're dealing with a brand new user. they won't have any watched data, so the above .find should fail
