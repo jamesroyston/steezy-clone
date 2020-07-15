@@ -148,28 +148,33 @@ module.exports = {
         }
       }
 
-      if (classById.userIds.find(user => user.userId === req.session.userId)) {
-        classById.userIds.map(user => {
-          if (user.userId === req.session.userId) {
-            user.progress = req.body.progress;
-            user.timestamp = TimeFormat.fromS(req.body.timestamp, 'mm:ss');
-            user.percentWatched = (overall.toFixed(2) * 100) + '%';
-            user.timeInClass = TimeFormat.fromS(req.body.timeInClass, 'hh:mm:ss');
-          }
-        })
-      }
+      try {
+        if (classById.userIds.find(user => user.userId === req.session.userId)) {
+          classById.userIds.map(user => {
+            if (user.userId === req.session.userId) {
+              user.progress = req.body.progress;
+              user.timestamp = TimeFormat.fromS(req.body.timestamp, 'mm:ss');
+              user.percentWatched = (overall.toFixed(2) * 100) + '%';
+              user.timeInClass = TimeFormat.fromS(req.body.timeInClass, 'hh:mm:ss');
+            }
+          })
+        }
 
-      if (!classById.userIds.find(user => user.userId === req.session.userId)) {
-        classById.userIds.push({
-          userId: req.session.userId,
-          progress: req.body.progress,
-          timestamp: req.body.timestamp,
-          percentWatched: (overall * 100).toFixed(2) + '%',
-          timeInClass: TimeFormat.fromS(req.body.timeInClass, 'hh:mm:ss')
-        })
+        if (!classById.userIds.find(user => user.userId === req.session.userId)) {
+          classById.userIds.push({
+            userId: req.session.userId,
+            progress: req.body.progress,
+            timestamp: req.body.timestamp,
+            percentWatched: (overall * 100).toFixed(2) + '%',
+            timeInClass: TimeFormat.fromS(req.body.timeInClass, 'hh:mm:ss')
+          })
+        }
+        classById.save()
+        res.sendStatus(200)
+      } catch (error) {
+        console.log(error)
+        res.sendStatus(200)
       }
-      classById.save()
-      res.sendStatus(200)
     })
   },
 
