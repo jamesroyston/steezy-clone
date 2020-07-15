@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const authContext = createContext({});
 
 const Store = props => {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   const [user, setUser] = useState('');
   const [loading, setLoading] = useState(true);
 

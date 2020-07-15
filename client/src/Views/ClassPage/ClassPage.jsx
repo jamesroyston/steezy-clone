@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components/macro';
 import { getClassById, updateWatched } from '../../api/api';
+import useSessionCheck from '../../hooks/useSessionCheck';
 
 const Container = styled.div`
   background-color: #000;
@@ -41,6 +42,8 @@ export default function ClassPage() {
     ranges: [],
     start: 0,
   });
+
+  useSessionCheck();
 
   useEffect(() => {
     if (isPlaying) {
