@@ -6,8 +6,6 @@ Your task is to bring the next generation of dance education to users around the
 
 ## Product Requirements
 
-### key for completetion: ✅
-
 AUTHENTICATION  
 As a user:
 - ✅ I want to navigate to the /signup route to sign up with an email and a password
@@ -97,9 +95,9 @@ We recommend taking no more than a day to complete this exercise. Best of luck a
 ## How to Run  
 
 1. Unpack ZIP
-2. Change directory into the resulting folder: `cd steezy-coding-challenge`
+2. Change directory into the resulting folder: `cd steezy-coding-challenge-master`
 3. Install dependencies: `npm install`.
-4. (If you are installing via ZIP in email, skip this step, otherwise do this step). Add new file called `.env` and add the following:
+4. Add new file called `.env` and add the following:
     ```$xslt
     PORT=5001
     DB=mongodb+srv://dbUser:dbPasswordYup@cluster0.c1jcn.mongodb.net/steezyDb?retryWrites=true&w=majority
@@ -107,7 +105,7 @@ We recommend taking no more than a day to complete this exercise. Best of luck a
     ``` 
    and save.
 8. Run server: `npm start`. Alternatively, you can run: `npm run dev` if you're interested in playing with the server-side code while running the app. 
-7. Open new tab in terminal, change directory to the client folder: `cd steezy-coding-challenge/client`.
+7. Open new tab in terminal, change directory to the client folder: `cd steezy-coding-challenge-master/client`.
 6. Install client-side dependencies: `npm install`.
 9. Run client: `npm start`.
 10. You should now see the app running on `localhost:3000` in your browser. 
