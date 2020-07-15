@@ -9,9 +9,15 @@ import thumbnailThree from '../../assets/class-thumbnail-3.jpg';
 const Container = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
-  flex: 1/3;
-  width: 32%;
+  @media (max-width: 1220px) {
+    width: 49%;
+  }
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
+  width: 31%;
   height: 30%;
+  min-height: calc(70vh / 3);
   display: flex;
   position: relative;
   margin-bottom: 1.5rem;
@@ -36,7 +42,7 @@ const LeftBlock = styled.div`
 const Gradient = styled.div`
   margin-left: 53px;
   position: absolute;
-  width: 196px;
+  width: 50%;
   height: 100%;
   background: linear-gradient(
     90deg,

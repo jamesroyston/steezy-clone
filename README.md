@@ -11,7 +11,7 @@ Your task is to bring the next generation of dance education to users around the
 AUTHENTICATION  
 As a user:
 - ✅ I want to navigate to the /signup route to sign up with an email and a password
-  - [ ] I want my email to be unique to me when I sign up. If a user already has the email I specified I should return to the signup page with some indication of an error
+  - ✅ I want my email to be unique to me when I sign up. If a user already has the email I specified I should return to the signup page with some indication of an error
 - ✅ I want to navigate to the /login route to login to my account with my email and password
   - ✅ I want the login page to show me some indication of an error if my login information is incorrect
   - ✅ I want the login page to have a link to the /signup page if I do not already have an account
@@ -46,18 +46,18 @@ As an authenticated user:
 - ✅ I want to play the video
 - ✅ I want to pause the video
 - ✅ I want to see a timestamp of how many seconds I have elapsed in the video
-- [ ] I want to see a timestamp of how many seconds I have remaining in the video
+- ✅ I want to see a timestamp of how many seconds I have remaining in the video
 - ✅ I want to see a progress bar representing where I am in the video
 - ✅ I want to be able to seek to different parts of the video by clicking on the progress bar
 
 ANALYTICS  
 As a user:
-- [ ] I want the application to track what timestamp I last left off in the class
-- [ ] I want the application to track what percentage of the class the user actually watched
-  - [ ] Case 1: User repeatedly watches the first 10% of the video and then closes the class player. The progress should only be 10%.
-  - [ ] Case 2: User watches the first 15% of the video. The user seeks to 10% timestamp and watches up to 25%. The user has only watched a total of 25% of the video. The total progress should be 25%.
-  - [ ] Case 3: User watches the first 10% and the last 10% of the video. The user has watched a total of 20% of the video. The total progress should be 20%.
-- [ ] I want the application to track how much time the user actually spent on the video. This includes play time and pause time
+- ✅ I want the application to track what timestamp I last left off in the class
+- ✅ I want the application to track what percentage of the class the user actually watched
+  - ✅ Case 1: User repeatedly watches the first 10% of the video and then closes the class player. The progress should only be 10%.
+  - ✅ Case 2: User watches the first 15% of the video. The user seeks to 10% timestamp and watches up to 25%. The user has only watched a total of 25% of the video. The total progress should be 25%.
+  - ✅ Case 3: User watches the first 10% and the last 10% of the video. The user has watched a total of 20% of the video. The total progress should be 20%.
+- ✅ I want the application to track how much time the user actually spent on the video. This includes play time and pause time
 
 NAVIGATION HEADER  
 As a user:
@@ -95,13 +95,35 @@ You can assume that you do not have to support legacy browsers. Feel free to use
 We recommend taking no more than a day to complete this exercise. Best of luck and happy coding!
 
 ## How to Run  
-Please provide instructions on how to run your application here...
+
+1. Unpack ZIP
+2. Change directory into the resulting folder: `cd steezy-coding-challenge`
+3. Install dependencies: `npm install`.
+4. (If you are installing via ZIP in email, skip this step, otherwise do this step). Add new file called `.env` and add the following:
+    ```$xslt
+    PORT=5001
+    DB=mongodb+srv://dbUser:dbPasswordYup@cluster0.c1jcn.mongodb.net/steezyDb?retryWrites=true&w=majority
+    SECRET=potato
+    ``` 
+   and save.
+8. Run server: `npm start`. Alternatively, you can run: `npm run dev` if you're interested in playing with the server-side code while running the app. 
+7. Open new tab in terminal, change directory to the client folder: `cd steezy-coding-challenge/client`.
+6. Install client-side dependencies: `npm install`.
+9. Run client: `npm start`.
+10. You should now see the app running on `localhost:3000` in your browser. 
 
 
 ## Assumptions
-Please list any assumptions or extra requirements you added to the application while developing below.
 
-FYI this is just a scratch pad:
+- concurrently would be nice to add, but I felt it was unnecessary overhead for development, so running the app will require two terminals, fyi
+- Since I need nav header, I might as well borrow some assets like logos and whatnot from steezy.co, and use the main site for inspo
+- needs to be responsive
+- using react-player for video handling
+- added favicon
+- added username display in navbar
+- added single margin to start and of pagination for easy jumping to first, last, or next/previous 5 pages
+
+## Scratchpad for brainstorming
 - will be using some sort of react video player package
     - found a few good ones that record state of video playback
         - can store these values in db for each video model
@@ -112,8 +134,11 @@ FYI this is just a scratch pad:
 - mongoose / mongodb
 - serving on mongoAtlas and heroku
 - only worried about 1080p resolution for mvp
-- not going to worry about having a dev branch because it's unnecessary overhead for this project
+- not going to worry about branching because it's unnecessary overhead for this project
 - starting point: 
     - I want to start with the mockups. I feel like a basic layout won't take too long to accomplish based on the figma screens
     - need to review auth gist I built a while back, should be an easy drop in for auth that supports signup/login/logout/unique accounts
     - will need to decide whether to store images in db with gridFS or just use the string of image name and dynamically select an asset that lives in the client
+- app will need to be responsive probably
+- for the data analytics, especially case 3, I am assuming that I only need to determine the percent watched on a per visit basis. 
+    - Further explained, I'm only sending my start and stop ranges to the backend per visit to a classes/{id} route.

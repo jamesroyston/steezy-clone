@@ -10,7 +10,10 @@ const ClassSchema = new mongoose.Schema({
   instructor: String,
   userIds: [{
     userId: String,
-    progress: Number
+    progress: Number,
+    timestamp: String,
+    percentWatched: String,
+    timeInClass: String
   }]
 });
 

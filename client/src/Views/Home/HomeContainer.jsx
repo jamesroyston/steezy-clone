@@ -4,18 +4,24 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 0em 6rem;
+  padding: 0 6rem;
+  @media (max-width: 620px) {
+    padding: 0 1rem;
+  }
   margin-bottom: 0.5rem;
 `;
 
 export const Heading = styled.h1`
   font-weight: bold;
   font-size: 32px;
-  margin: 0;
+  @media (max-width: 800px) {
+    font-size: 22px;
+  }
+  margin: 0 3rem 0 0;
 `;
 
 export const HomeContainer = styled.div`
-  overflow: hidden;
+  overflow: auto;
   height: 100vh;
   width: 100vw;
   background-color: #fff;
@@ -25,7 +31,6 @@ export const HomeContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
     width: 100%;
     padding: 0;
     font-weight: bolder;
@@ -65,5 +70,14 @@ export const HomeContainer = styled.div`
     .break-me {
       //display: none;
     }
+  }
+`;
+
+export const NoResults = styled.div`
+  display: ${props => (props.showing ? 'block' : 'none')};
+  font-weight: bold;
+  padding: 0 6rem;
+  @media (max-width: 620px) {
+    padding: 0 1rem;
   }
 `;

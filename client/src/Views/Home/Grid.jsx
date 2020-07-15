@@ -7,26 +7,32 @@ const Container = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 82%;
+  height: fit-content;
   padding: 0 6rem;
-  justify-content: space-between;
+  @media (max-width: 620px) {
+    padding: 0 1rem;
+  }
   align-content: flex-start;
+  justify-content: space-between;
 
   // pushes last card over since last row has two items instead of three
   ::after {
     content: '';
-    flex: 1/3;
     width: 32%;
-    height: 30%;
   }
 `;
 
 const Skel = styled.div`
-  width: 32%;
-  height: 30%;
   position: relative;
   margin-bottom: 1.5rem;
-  flex: 1/3;
+  @media (max-width: 1220px) {
+    width: 49%;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+  }
+  width: 31%;
+  height: calc(70vh / 3);
 `;
 
 export default function Grid({ classes, loading }) {

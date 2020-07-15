@@ -44,10 +44,13 @@ export function sessionCheck() {
     .catch(error => console.log(error));
 }
 
-export function updateWatched(videoId, progress) {
+export function updateWatched(videoId, progress, timestamp, timeInClass, percentWatched) {
   return Axios.post(`/api/updateClasses`, {
     videoId,
     progress,
+    timestamp,
+    timeInClass,
+    percentWatched,
   })
     .then(res => res.data)
     .catch(error => console.log(error));

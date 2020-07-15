@@ -12,7 +12,6 @@ const Container = styled.div`
   width: 100%;
   align-items: center;
   margin-bottom: 0.5rem;
-  //padding: 0em 6rem;
   border-bottom: 3px solid #ebefef;
   span {
     margin: 0 1rem 0 0;
@@ -30,8 +29,14 @@ const Container = styled.div`
   }
 
   .user_logo {
-    width: 33px;
+    width: 16px;
+    margin-right: 0.25em;
   }
+`;
+
+const Username = styled.strong`
+  font-size: 12px;
+  letter-spacing: 0.9px;
 `;
 
 const HeaderLink = styled(Link)`
@@ -46,6 +51,9 @@ const HeaderLink = styled(Link)`
   justify-content: center;
   align-items: center;
   padding: 0 2rem;
+  @media (max-width: 375px) {
+    padding: 0 1rem;
+  }
   :hover {
     color: #fff;
     background-color: #0b79fb;
@@ -93,7 +101,7 @@ export default function Header() {
       <div>
         <span>
           <User className="user_logo" />
-          <strong>{store.get.user.substring(0, store.get.user.indexOf('@'))}</strong>
+          <Username>{store.get.user.substring(0, store.get.user.indexOf('@'))}</Username>
         </span>
         <HeaderLink to="/classes" onClick={handleLogout}>
           LOGOUT
