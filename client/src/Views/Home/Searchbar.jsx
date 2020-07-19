@@ -4,7 +4,7 @@ import { ReactComponent as Search } from '../../assets/search.svg';
 
 const Container = styled.form`
   input {
-    line-height: 1;
+    line-height: 2;
     margin-left: 11px;
     font-size: 14px;
     background: none;

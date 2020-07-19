@@ -21,13 +21,18 @@ export const Heading = styled.h1`
 `;
 
 export const HomeContainer = styled.div`
-  overflow: auto;
-  height: 100vh;
+  // hide scrollbar on ios safari
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
   width: 100vw;
   background-color: #fff;
 
   .pagination {
-    margin: -1em 0 0 0;
+    margin: 1em 0 3rem 0;
     display: flex;
     justify-content: center;
     align-items: center;

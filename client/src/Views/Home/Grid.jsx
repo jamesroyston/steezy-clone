@@ -9,6 +9,7 @@ const Container = styled.div`
   width: 100%;
   height: fit-content;
   padding: 0 6rem;
+  overflow-y: hidden;
   @media (max-width: 620px) {
     padding: 0 1rem;
   }
